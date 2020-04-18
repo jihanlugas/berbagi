@@ -5,45 +5,31 @@
         <!-- Add Your Content Inside -->
         <div class="content">
             <!-- Remove This Before You Start -->
-            <h1>Anak IT -  Table Kontak</h1>
-            @if(Session::has('alert-success'))
-                <div class="alert alert-success">
-                    <strong>{{ \Illuminate\Support\Facades\Session::get('alert-success') }}</strong>
-                </div>
-            @endif
+            <h1>Anak IT -  Tambah Kontak</h1>
             <hr>
-            <table class="table table-bordered">
-                <thead>
-                <tr>
-                    <th>No.</th>
-                    <th>Nama</th>
-                    <th>Email</th>
-                    <th>No. HP</th>
-                    <th>Alamat</th>
-                    <th>Aksi</th>
-                </tr>
-                </thead>
-                <tbody>
-                @php $no = 1; @endphp
-                @foreach($data as $datas)
-                    <tr>
-                        <td>{{ $no++ }}</td>
-                        <td>{{ $datas->nama }}</td>
-                        <td>{{ $datas->email }}</td>
-                        <td>{{ $datas->nohp }}</td>
-                        <td>{{ $datas->alamat }}</td>
-                        <td>
-                            <form action="{{ route('kontak.destroy', $datas->id) }}" method="post">
-                                {{ csrf_field() }}
-                                {{ method_field('DELETE') }}
-                                <a href="{{ route('kontak.edit',$datas->id) }}" class=" btn btn-sm btn-primary">Edit</a>
-                                <button class="btn btn-sm btn-danger" type="submit" onclick="return confirm('Yakin ingin menghapus data?')">Delete</button>
-                            </form>
-                        </td>
-                    </tr>
-                @endforeach
-                </tbody>
-            </table>
+            <form action="{{ route('kontak.store') }}" method="post">
+                @csrf
+                <div class="form-group">
+                    <label for="nama">Nama:</label>
+                    <input type="text" class="form-control" id="usr" name="nama">
+                </div>
+                <div class="form-group">
+                    <label for="email">Email:</label>
+                    <input type="email" class="form-control" id="email" name="email">
+                </div>
+                <div class="form-group">
+                    <label for="nohp">No Hp:</label>
+                    <input type="text" class="form-control" id="nohp" name="nohp">
+                </div>
+                <div class="form-group">
+                    <label for="alamat">Alamat:</label>
+                    <textarea class="form-control" id="alamat" name="alamat"></textarea>
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-md btn-primary">Submit</button>
+                    <button type="reset" class="btn btn-md btn-danger">Cancel</button>
+                </div>
+            </form>
         </div>
         <!-- /.content -->
     </section>

@@ -13,9 +13,18 @@ class CreateModelKontaksTable extends Migration
      */
     public function up()
     {
-        Schema::create('model_kontaks', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
+//        Schema::create('model_kontaks', function (Blueprint $table) {
+//            $table->id();
+//            $table->timestamps();
+//        });
+
+        Schema::create('kontak', function (Blueprint $table) {
+            $table->increments('id'); //membuat kolom id auto increment
+            $table->string('nama'); //membuat kolom nama
+            $table->string('email'); //membuat kolom email
+            $table->string('nohp'); //membuat kolom no hp
+            $table->text('alamat'); //membuat kolom alamat dengan tipe text
+            $table->timestamps(); //membuat kolom created_at dan updated_at sebagai fungsi dasar laravel
         });
     }
 
@@ -26,6 +35,6 @@ class CreateModelKontaksTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('model_kontaks');
+        Schema::dropIfExists('kontak');
     }
 }
