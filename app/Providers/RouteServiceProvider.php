@@ -42,24 +42,27 @@ class RouteServiceProvider extends ServiceProvider
     public function map()
     {
         $this->mapApiRoutes();
+        $this->mapWebRoutes();
 
-        if (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on')
-            $link = "https";
-        else
-            $link = "http";
-
-        $link .= "://";
-        $link .= $_SERVER['HTTP_HOST'];
-
-        $link = str_replace('https://', '', $link);
-        $link = str_replace('http://', '', $link);
-        $link = str_replace('www.', '', $link);
-        $link = str_replace('berbagi.web', '', $link);
-
-        if ($link)
-            $this->mapWebAdminRoutes();
-        else
-            $this->mapWebRoutes();
+//        $this->mapApiRoutes();
+//
+//        if (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on')
+//            $link = "https";
+//        else
+//            $link = "http";
+//
+//        $link .= "://";
+//        $link .= $_SERVER['HTTP_HOST'];
+//
+//        $link = str_replace('https://', '', $link);
+//        $link = str_replace('http://', '', $link);
+//        $link = str_replace('www.', '', $link);
+//        $link = str_replace('berbagi.web', '', $link);
+//
+//        if ($link)
+//            $this->mapWebAdminRoutes();
+//        else
+//            $this->mapWebRoutes();
     }
 
     /**

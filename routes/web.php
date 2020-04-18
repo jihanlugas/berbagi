@@ -18,6 +18,12 @@ Route::get('/', 'SiteController@index');
 Route::get('/form', 'SiteController@form');
 Route::post('/', 'SiteController@store');
 
+
+Route::resource('kontak','Kontak');
+//Route::get('/kontak', 'Kontak@index');
+
+
+
 Auth::routes();
 
 Route::get('/tes', 'HomeController@index')->name('home');
