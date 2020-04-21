@@ -5,12 +5,15 @@
         <!-- Add Your Content Inside -->
         <div class="content">
             <!-- Remove This Before You Start -->
-            <h1>Anak IT -  Table Kontak</h1>
+            <h1>Anak IT - Table Kontak</h1>
             @if(Session::has('alert-success'))
                 <div class="alert alert-success">
                     <strong>{{ \Illuminate\Support\Facades\Session::get('alert-success') }}</strong>
                 </div>
             @endif
+            <div class="right">
+                <a href="{{ route('kontak.create') }}" class=" btn btn-sm btn-primary">Create</a>
+            </div>
             <table class="table table-bordered">
                 <thead>
                 <tr>
@@ -36,7 +39,9 @@
                                 @csrf
                                 {{ method_field('DELETE') }}
                                 <a href="{{ route('kontak.edit',$datas->id) }}" class=" btn btn-sm btn-primary">Edit</a>
-                                <button class="btn btn-sm btn-danger" type="submit" onclick="return confirm('Yakin ingin menghapus data?')">Delete</button>
+                                <button class="btn btn-sm btn-danger" type="submit"
+                                        onclick="return confirm('Yakin ingin menghapus data?')">Delete
+                                </button>
                             </form>
                         </td>
                     </tr>

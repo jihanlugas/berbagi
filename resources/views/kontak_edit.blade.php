@@ -5,33 +5,49 @@
         <!-- Add Your Content Inside -->
         <div class="content">
             <!-- Remove This Before You Start -->
-            <h1>Anak IT -  Edit Kontak</h1>
-            @foreach($data as $datas)
-                <form action="{{ route('kontak.update', $datas->id) }}" method="post">
-                    @csrf
-                    {{ method_field('PUT') }}
-                    <div class="form-group">
-                        <label for="nama">Nama:</label>
-                        <input type="text" class="form-control" id="usr" name="nama" value="{{ $datas->nama }}">
+            <h1>Anak IT - Edit Kontak</h1>
+            <form action="{{ route('kontak.update', $data->id) }}" method="post">
+                @csrf
+                {{ method_field('PUT') }}
+                <div class="row">
+                    <div class="input-field">
+                        <label for="nama">Nama</label>
+                        @error('nama')
+                        <span class="helper-text red-text">{{ $message }}</span>
+                        @enderror
+                        <input type="text" class="validate @error('nama') invalid @enderror" id="nama" name="nama"
+                               value="{{ $data->nama }}">
                     </div>
-                    <div class="form-group">
-                        <label for="email">Email:</label>
-                        <input type="email" class="form-control" id="email" name="email" value="{{ $datas->email }}">
+                    <div class="input-field">
+                        <label for="email">Email</label>
+                        @error('email')
+                        <span class="helper-text red-text">{{ $message }}</span>
+                        @enderror
+                        <input type="email" class="validate @error('email') invalid @enderror" id="email" name="email"
+                               value="{{ $data->email }}">
                     </div>
-                    <div class="form-group">
-                        <label for="nohp">No Hp:</label>
-                        <input type="text" class="form-control" id="nohp" name="nohp" value="{{ $datas->nohp }}">
+                    <div class="input-field">
+                        <label for="nohp">No Hp</label>
+                        @error('nohp')
+                        <span class="helper-text red-text">{{ $message }}</span>
+                        @enderror
+                        <input type="text" class="validate @error('nohp') invalid @enderror" id="nohp" name="nohp"
+                               value="{{ $data->nohp }}">
                     </div>
-                    <div class="form-group">
-                        <label for="alamat">Alamat:</label>
-                        <textarea class="form-control materialize-textarea" id="alamat" name="alamat">{{ $datas->alamat }}</textarea>
+                    <div class="input-field">
+                        <label for="alamat">Alamat</label>
+                        <textarea class="validate materialize-textarea @error('alamat') invalid @enderror" id="alamat"
+                                  name="alamat">{{ $data->alamat }}</textarea>
+                        @error('alamat')
+                        <span class="helper-text red-text">{{ $message }}</span>
+                        @enderror
                     </div>
-                    <div class="form-group">
+                    <div class="input-field">
                         <button type="submit" class="btn btn-md btn-primary">Submit</button>
                         <button type="reset" class="btn btn-md btn-danger">Cancel</button>
                     </div>
-                </form>
-            @endforeach
+                </div>
+            </form>
         </div>
         <!-- /.content -->
     </section>

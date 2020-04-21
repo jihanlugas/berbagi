@@ -3,9 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
 use App\ModelKontak;
-
 
 class Kontak extends Controller
 {
@@ -14,10 +12,13 @@ class Kontak extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+
     public function index()
     {
+
         $data = ModelKontak::all();
-        return view('kontak',compact('data'));
+        return view('kontak', compact('data'));
     }
 
     /**
@@ -33,24 +34,41 @@ class Kontak extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
-        $data = new ModelKontak();
-        $data->nama = $request->nama;
-        $data->email = $request->email;
-        $data->nohp = $request->nohp;
-        $data->alamat = $request->alamat;
-        $data->save();
-        return redirect()->route('kontak.index')->with('alert-success','Berhasil Menambahkan Data!');
+//        $data = new ModelKontak();
+//        $data->nama = $request->nama;
+//        $data->email = $request->email;
+//        $data->nohp = $request->nohp;
+//        $data->alamat = $request->alamat;
+//        $data->save();
+
+        $request->validate([
+            'nama' => 'required|max:255',
+            'email' => 'required|unique:kontak,email',
+            'alamat' => 'required',
+            'nohp' => 'required|numeric',
+            'photo_id' => 'image|mimes:jpeg,png,gif,webp|max:2048'
+        ]);
+
+
+        if ($request->file('photo_id')){
+            $file = $request->file('photo_id');
+            $directory = 'uploads';
+            $file->move($directory, $file->getClientOriginalName());
+        }
+
+        ModelKontak::create($request->all());
+        return redirect()->route('kontak.index')->with('alert-success', 'Berhasil Menambahkan Data!');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function show($id)
@@ -61,44 +79,63 @@ class Kontak extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
     {
-        $data = ModelKontak::where('id',$id)->get();
+        $data = ModelKontak::where('id', $id)->first();
 
-        return view('kontak_edit',compact('data'));
+        return view('kontak_edit', compact('data'));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param \Illuminate\Http\Request $request
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
     {
-        $data = ModelKontak::where('id',$id)->first();
-        $data->nama = $request->nama;
-        $data->email = $request->email;
-        $data->nohp = $request->nohp;
-        $data->alamat = $request->alamat;
-        $data->save();
-        return redirect()->route('kontak.index')->with('alert-success','Data berhasil diubah!');
+
+//        $data = ModelKontak::where('id', $id)->first();
+//        $data->nama = $request->nama;
+//        $data->email = $request->email;
+//        $data->nohp = $request->nohp;
+//        $data->alamat = $request->alamat;
+//        $data->save();
+
+
+        $request->validate([
+            'nama' => 'required|max:255',
+            'email' => 'required|unique:kontak,email',
+            'alamat' => 'required',
+            'nohp' => 'required',
+        ]);
+
+        ModelKontak::where('id', $id)
+            ->update([
+                'nama' => $request->nama,
+                'email' => $request->email,
+                'alamat' => $request->alamat,
+                'nohp' => $request->nohp,
+            ]);
+
+
+        return redirect()->route('kontak.index')->with('alert-success', 'Data berhasil diubah!');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
-        $data = ModelKontak::where('id',$id)->first();
+        $data = ModelKontak::where('id', $id)->first();
         $data->delete();
-        return redirect()->route('kontak.index')->with('alert-success','Data berhasi dihapus!');
+        return redirect()->route('kontak.index')->with('alert-success', 'Data berhasi dihapus!');
     }
 }
