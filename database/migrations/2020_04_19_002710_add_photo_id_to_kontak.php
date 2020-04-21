@@ -14,7 +14,7 @@ class AddPhotoIdToKontak extends Migration
     public function up()
     {
         Schema::table('kontak', function (Blueprint $table) {
-            //
+            $table->foreignId('photo_id')->after('alamat')->default(0);
         });
     }
 
@@ -26,7 +26,7 @@ class AddPhotoIdToKontak extends Migration
     public function down()
     {
         Schema::table('kontak', function (Blueprint $table) {
-            //
+            $table->dropColumn('photo_id');
         });
     }
 }

@@ -4,11 +4,16 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\ModelKontak;
-use App\Http\Traits\BrandsTrait;
+use App\Http\Traits\BrandTraits;
 
 class BrandstraitController extends Controller
 {
-    use BrandsTrait;
+    use BrandTraits;
+
+    public function index()
+    {
+        return $this->brandsAll();
+    }
 
     public function addProduct()
     {
