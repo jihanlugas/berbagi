@@ -19,6 +19,11 @@ Route::get('/form', 'SiteController@form');
 Route::post('/', 'SiteController@store');
 
 Route::resource('kontak','Kontak');
+
+Route::get('register/index', 'RegisterController@index');
+
+
+
 //Route::get('/kontak', 'Kontak@index');
 
 

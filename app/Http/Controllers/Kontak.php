@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\ModelKontak;
+use App\Photoupload;
+use App\Http\Traits\PhotouploadTrait;
 
 class Kontak extends Controller
 {
@@ -12,7 +14,7 @@ class Kontak extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-
+    use PhotouploadTrait;
 
     public function index()
     {
@@ -39,12 +41,8 @@ class Kontak extends Controller
      */
     public function store(Request $request)
     {
-//        $data = new ModelKontak();
-//        $data->nama = $request->nama;
-//        $data->email = $request->email;
-//        $data->nohp = $request->nohp;
-//        $data->alamat = $request->alamat;
-//        $data->save();
+
+        $photo_id = 0;
 
         $request->validate([
             'nama' => 'required|max:255',
@@ -54,14 +52,25 @@ class Kontak extends Controller
             'photo_id' => 'image|mimes:jpeg,png,gif,webp|max:2048'
         ]);
 
-
-        if ($request->file('photo_id')){
-            $file = $request->file('photo_id');
-            $directory = 'uploads';
-            $file->move($directory, $file->getClientOriginalName());
+        if ($request->file('photo_id')) {
+            $photo_id = ($this->uploadPhoto($request->file('photo_id')));
         }
 
-        ModelKontak::create($request->all());
+        $mKontak = new ModelKontak();
+        $mKontak->nama = $request->nama;
+        $mKontak->email = $request->email;
+        $mKontak->nohp = $request->nohp;
+        $mKontak->alamat = $request->alamat;
+        $mKontak->photo_id = $photo_id;
+        $mKontak->save();
+
+        if ($photo_id) {
+            Photoupload::where('id', $photo_id)
+                ->update([
+                    'ref_id' => $mKontak->id,
+                ]);
+        }
+
         return redirect()->route('kontak.index')->with('alert-success', 'Berhasil Menambahkan Data!');
     }
 
