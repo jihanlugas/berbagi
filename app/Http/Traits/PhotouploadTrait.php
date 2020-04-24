@@ -6,12 +6,12 @@ use App\Photoupload;
 
 trait PhotouploadTrait
 {
-    public function uploadPhoto($request)
+    public function uploadPhoto($request, $ref_type)
     {
         $directory = 'uploads';
 
         $data = new Photoupload();
-        $data->ref_type = 1;
+        $data->ref_type = $ref_type;
         $data->ref_id = 0;
         $data->folder_name = $directory;
         $data->file_name = str_replace(' ', '-', $request->getClientOriginalName());
