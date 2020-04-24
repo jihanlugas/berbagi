@@ -20,7 +20,8 @@ Route::post('/', 'SiteController@store');
 
 Route::resource('kontak','Kontak');
 
-Route::get('register/index', 'RegisterController@index');
+Route::resource('register','RegisterController');
+
 
 
 
@@ -28,7 +29,7 @@ Route::get('register/index', 'RegisterController@index');
 
 
 
-Auth::routes();
+//Auth::routes();
 
 Route::get('/tes', 'HomeController@index')->name('home');
 

@@ -53,7 +53,7 @@ class Kontak extends Controller
         ]);
 
         if ($request->file('photo_id')) {
-            $photo_id = ($this->uploadPhoto($request->file('photo_id')));
+            $photo_id = $this->uploadPhoto($request->file('photo_id'), 0);
         }
 
         $mKontak = new ModelKontak();
