@@ -14,24 +14,14 @@ use Illuminate\Support\Facades\Route;
 */
 
 
+Auth::routes();
 Route::get('/', 'SiteController@index');
-Route::get('/form', 'SiteController@form');
-Route::post('/', 'SiteController@store');
-
-Route::resource('kontak','Kontak');
-
-Route::resource('register','RegisterController');
-
-
-
-
-//Route::get('/kontak', 'Kontak@index');
-
-
-
-//Auth::routes();
-
-Route::get('/tes', 'HomeController@index')->name('home');
-
-
-Route::get('/trait', 'BrandstraitController@index');
+//Route::get('/form', 'SiteController@form');
+//
+//Route::get('/site', 'SiteController@index');
+//
+//Route::resource('kontak','Kontak');
+//Route::resource('register','RegisterController');
+////Route::get('/kontak', 'Kontak@index');
+//Route::get('/home', 'HomeController@index')->name('home');
+//Route::get('/trait', 'BrandstraitController@index');

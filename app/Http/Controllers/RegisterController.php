@@ -19,6 +19,7 @@ class RegisterController extends Controller
 
     public function index()
     {
+        die('asd');
         return view('register.index');
     }
 
