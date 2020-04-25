@@ -21,7 +21,7 @@ class RouteServiceProvider extends ServiceProvider
      *
      * @var string
      */
-    public const HOME = '/home';
+    public const HOME = '/';
 
     /**
      * Define your route model bindings, pattern filters, etc.
@@ -41,28 +41,28 @@ class RouteServiceProvider extends ServiceProvider
      */
     public function map()
     {
-        $this->mapApiRoutes();
-        $this->mapWebRoutes();
-
 //        $this->mapApiRoutes();
-//
-//        if (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on')
-//            $link = "https";
-//        else
-//            $link = "http";
-//
-//        $link .= "://";
-//        $link .= $_SERVER['HTTP_HOST'];
-//
-//        $link = str_replace('https://', '', $link);
-//        $link = str_replace('http://', '', $link);
-//        $link = str_replace('www.', '', $link);
-//        $link = str_replace('berbagi.web', '', $link);
-//
-//        if ($link)
-//            $this->mapWebAdminRoutes();
-//        else
-//            $this->mapWebRoutes();
+//        $this->mapWebRoutes();
+
+        $this->mapApiRoutes();
+
+        if (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on')
+            $link = "https";
+        else
+            $link = "http";
+
+        $link .= "://";
+        $link .= $_SERVER['HTTP_HOST'];
+
+        $link = str_replace('https://', '', $link);
+        $link = str_replace('http://', '', $link);
+        $link = str_replace('www.', '', $link);
+        $link = str_replace('berbagi.web', '', $link);
+
+        if ($link)
+            $this->mapWebAdminRoutes();
+        else
+            $this->mapWebRoutes();
     }
 
     /**
@@ -81,7 +81,7 @@ class RouteServiceProvider extends ServiceProvider
 
     protected function mapWebAdminRoutes()
     {
-        Route::middleware('admin')
+        Route::middleware('web')
             ->namespace($this->namespace)
             ->group(base_path('routes/admin.php'));
     }

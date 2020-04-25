@@ -75,8 +75,6 @@
 
     <nav>
         <a href="#" data-target="slide-out" class="sidenav-trigger"><i class="material-icons">menu</i></a>
-        <a href="#" class="sidenav-logout" onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();"><span>Logout</span></a>
         <ul id="slide-out" class="sidenav">
             <li>
                 <div class="user-view">
@@ -112,9 +110,6 @@
             </div>
         </div>
     </footer>
-    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-        @csrf
-    </form>
 </div>
 
 <!-- Scripts -->
