@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\Route;
 
 Auth::routes();
 Route::get('/', 'SiteController@index');
+Route::get('/success', 'Auth\RegisterController@success')->name('success');
 //Route::get('/form', 'SiteController@form');
 //
 //Route::get('/site', 'SiteController@index');
